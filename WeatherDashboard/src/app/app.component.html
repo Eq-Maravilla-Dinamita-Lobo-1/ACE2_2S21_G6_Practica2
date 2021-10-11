@@ -1,0 +1,91 @@
+
+<div class="grid">
+    <div class="col-12 lg:col-8">
+        
+        <h1 class="text-7xl m-0"> {{dateStr | date : 'mediumTime'}} </h1>
+        <p class="text-2xl m-0 text-600"> {{dateStr | date : 'fullDate'}} </p>
+        <!-- <p class="text-6xl mt-2"> Buenas Tardes G6! </p> -->
+        
+        
+        <p-card [style]="{'width': '100%', 'border-radius': '30px'}" [styleClass]="'shadow-7'">
+            
+            <i class="pi pi-filter mr-3" style="font-size: 1.2rem"></i>
+            <p-dropdown [options]="options" [(ngModel)]="selectedOption" optionLabel="name" optionValue="code" class="mb-4" (onChange)="onChange()"></p-dropdown>
+            <p-dropdown [options]="options2" [(ngModel)]="selectedOption2" optionLabel="name" optionValue="code" class="mb-4" (onChange)="onChange()"></p-dropdown>
+
+            <p-tabView>
+                <p-tabPanel header="Temperatura">
+                    <p-chart type="line" height="250" [data]="lineStylesData" [options]="basicOptions"></p-chart>
+                </p-tabPanel>
+
+                <p-tabPanel header="Humedad">
+                    <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi
+                        architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione
+                        voluptatem sequi nesciunt. Consectetur, adipisci velit, sed quia non numquam eius modi.</p>
+                </p-tabPanel>
+
+                <p-tabPanel header="Cantidad de Luz">
+                    <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati
+                        cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio.
+                        Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus.</p>
+                </p-tabPanel>
+
+                <p-tabPanel header="Velocidad del Viento">
+                    <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi
+                        architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione
+                        voluptatem sequi nesciunt. Consectetur, adipisci velit, sed quia non numquam eius modi.</p>
+                </p-tabPanel>
+                
+                <p-tabPanel header="Dirección del Viento">
+                    <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati
+                        cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio.
+                        Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus.</p>
+                </p-tabPanel>
+            </p-tabView>
+
+        </p-card>
+
+        <h2>Medidas de hoy</h2>
+        <div class="grid ">
+
+            <div class="col-6 xl:col-4 ">
+                <app-measure-card title="Temperatura" imgSrc="/assets/weather-icon/fill/all/thermometer.svg" 
+                    [value]="temperature |  number : '1.2-2'" sup="°C"
+                ></app-measure-card>
+            </div>
+
+            <div class="col-6 xl:col-4 ">
+                <app-measure-card title="Humedad" imgSrc="/assets/weather-icon/fill/all/raindrop.svg" 
+                    [value]="humidity |  number : '1.2-2'" sup="%"
+                ></app-measure-card>
+            </div>
+
+            <div class="col-6 xl:col-4 ">
+                <app-measure-card title="Cantidad de luz" imgSrc="/assets/weather-icon/fill/all/clear-day.svg" 
+                    [value]="light |  number : '1.2-2'" sub="lm"
+                ></app-measure-card>
+            </div>
+
+            <div class="col-6 xl:col-4 ">
+                <app-measure-card title="Velocidad del Viento" imgSrc="/assets/weather-icon/fill/all/wind.svg" 
+                    [value]="windSpeed |  number : '1.2-2'" sub="km/h"
+                ></app-measure-card>
+            </div>
+
+            <div class="col-6 xl:col-4 ">
+                <app-measure-card title="Dirección del Viento" imgSrc="/assets/weather-icon/fill/all/compass.svg" 
+                    [value]="windDirection" 
+                ></app-measure-card>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="col-12 lg:col-4 m-auto">
+        <app-status-card></app-status-card>
+    </div>
+</div>
+
+
+    

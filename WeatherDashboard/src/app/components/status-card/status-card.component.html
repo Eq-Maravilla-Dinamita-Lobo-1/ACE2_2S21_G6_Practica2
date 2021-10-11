@@ -1,0 +1,43 @@
+<p-card [style]="{'width': '100%', 'border-radius': '30px'}" [styleClass]="'shadow-7'">
+    
+    <i class="pi pi-map-marker my-2 font-medium" style="font-size: 1.2rem"> Tu Sector</i>
+
+    <p class="font-semibold text-center text-xl uppercase"> Velocidad del viento </p>
+
+    <div class="wi-icon flex flex-column align-items-center" *ngIf="windStatus==0">
+        <img src="/assets/weather-icon/fill/all/wind.svg" alt="Velocidad del Viento">
+        <p class="font-medium text-center text-lg m-0">Nomal</p>
+    </div>
+
+    <div class="wi-icon flex flex-column align-items-center" *ngIf="windStatus==1">
+        <img src="/assets/weather-icon/fill/all/dust-wind.svg" alt="Velocidad del Viento">
+        <p class="font-medium text-center text-lg m-0"> Fuerte</p>
+    </div>
+
+
+    <p class="font-semibold text-center text-xl uppercase"> Visibilidad </p>
+    <div class="mb-4">
+
+        <div class="wi-icon flex flex-column align-items-center" *ngIf="visibility==2">
+            <img src="/assets/weather-icon/fill/all/partly-cloudy-day-rain.svg" alt="Visbilidad Nublado">
+            <p class="font-medium text-center text-lg m-0">Nublado con Lluiva</p>
+        </div>
+        
+        <div class="wi-icon flex flex-column align-items-center" *ngIf="visibility==3">
+            <img src="/assets/weather-icon/fill/all/partly-cloudy-day.svg" alt="Visbilidad Nublado">
+            <p class="font-medium text-center text-lg m-0">Nublado sin Lluiva</p>
+        </div>
+        
+        <div class="wi-icon flex flex-column align-items-center" *ngIf="visibility==4">
+            <img src="/assets/weather-icon/fill/all/clear-day.svg" alt="Visbilidad Despejado">
+            <p class="font-medium text-center text-lg m-0"> Despejado con calor</p>
+        </div>
+        
+        <div class="wi-icon flex flex-column align-items-center" *ngIf="visibility==5">
+            <img src="/assets/weather-icon/line/all/clear-day.svg" alt="Visbilidad Despejado">
+            <p class="font-medium text-center text-lg m-0"> Despejado sin calor</p>
+        </div>
+    </div>
+
+
+</p-card>
