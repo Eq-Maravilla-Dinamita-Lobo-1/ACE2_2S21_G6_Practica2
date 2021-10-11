@@ -1,18 +1,21 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { PrimeNGConfig } from 'primeng/api';
+import { Subscription } from 'rxjs';
+import { EventMqttService } from './services/event-mqtt.service';
+import { IMqttMessage } from 'ngx-mqtt';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
+export class AppComponent implements OnInit, OnDestroy {
 	
-    temperature = 30.40;
-    humidity = 63.40;
-    light = 33.40;
-    windSpeed = 10;
-    windDirection = "Norte";
+    temperature = 0.0;
+    humidity = 0.0;
+    light = 0.0;
+    windSpeed = 0.0;
+    windDirection = "";
 
     dateStr: any;
     time: any;
@@ -26,19 +29,19 @@ export class AppComponent {
     lineStylesData: any;
     basicOptions: any;
 
-    constructor( private primengConfig: PrimeNGConfig){
-    let dt = new Date();
-    this.dateStr = Date.now()
-    this.time = dt.getTime()
+    //@ts-ignore
+    subscription : Subscription;
 
-    console.log(this.time);
-    console.log(this.dateStr);
-
+    constructor( private primengConfig: PrimeNGConfig, private readonly eventMqttService: EventMqttService){
+        let dt = new Date();
+        this.dateStr = Date.now()
+        this.time = dt.getTime()
 
     }
 
 
     ngOnInit() {
+        this.subscribeToTopic();
         this.primengConfig.ripple = true;
         this.options = [
             {name: 'Hoy', code: 'NY'},
@@ -72,6 +75,12 @@ export class AppComponent {
 
     
         this.applyDarkTheme();
+    }
+
+    ngOnDestroy(){
+        if (this.subscription) {
+            this.subscription.unsubscribe();
+        }
     }
 
     private applyDarkTheme() {
@@ -119,8 +128,15 @@ export class AppComponent {
     }
 
     onChange() {
-        console.log("OPTION1: ",this.selectedOption, " OPTION2: ", this.selectedOption2);
-        
+        console.log("OPTION1: ",this.selectedOption, " OPTION2: ", this.selectedOption2);      
+    }
+
+    private subscribeToTopic(){
+        this.subscription = this.eventMqttService.topic('ACYE2_G6/#')
+            .subscribe( (data: IMqttMessage) => {
+                console.log(data.payload.toString());
+                
+            });
     }
   
 }

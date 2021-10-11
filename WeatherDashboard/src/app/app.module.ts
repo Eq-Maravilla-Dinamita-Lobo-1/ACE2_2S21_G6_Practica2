@@ -2,11 +2,24 @@ import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
 
+import { IMqttServiceOptions, MqttModule } from "ngx-mqtt";
+
 import { AppComponent } from './app.component';
 import { PrimengModule } from './primeng/primeng.module';
 import { MeasureCardComponent } from './components/measure-card/measure-card.component';
 import { FormsModule } from '@angular/forms';
 import { StatusCardComponent } from './components/status-card/status-card.component';
+
+
+const MQTT_SERVICE_OPTIONS: IMqttServiceOptions = {
+    hostname: 'test.mosquitto.org',
+    port: 8080,
+    protocol: "ws",
+    //  hostname: 'broker.hivemq.com',
+            // protocol: 'ws',
+            // port: 8000,
+    path: '/mqtt',
+};
 
 @NgModule({
   declarations: [
@@ -18,7 +31,9 @@ import { StatusCardComponent } from './components/status-card/status-card.compon
     BrowserAnimationsModule,
     BrowserModule,
     FormsModule,
-    PrimengModule
+    PrimengModule,
+
+    MqttModule.forRoot(MQTT_SERVICE_OPTIONS),
   ],
   providers: [],
   bootstrap: [AppComponent]
