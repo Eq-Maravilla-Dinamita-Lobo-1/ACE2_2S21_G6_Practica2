@@ -12,13 +12,11 @@ import { StatusCardComponent } from './components/status-card/status-card.compon
 
 
 const MQTT_SERVICE_OPTIONS: IMqttServiceOptions = {
-    hostname: 'test.mosquitto.org',
-    port: 8080,
-    protocol: "ws",
-    //  hostname: 'broker.hivemq.com',
-            // protocol: 'ws',
-            // port: 8000,
-    path: '/mqtt',
+  // hostname: 'test.mosquitto.org' , 
+  // port: 8083,
+  hostname: 'my-broker-acye2.herokuapp.com' , 
+  protocol: "wss",
+  path: '/mqtt',
 };
 
 @NgModule({

@@ -2,7 +2,7 @@ const mqtt = require('mqtt');
 const serialPort = require("serialport");
 // const readLine = require("@serialport/parser-readline");
 
-const publisher = mqtt.connect('mqtt://test.mosquitto.org');
+const publisher = mqtt.connect("wss://my-broker-acye2.herokuapp.com");
 
 
 const usb_port = 'COM5';
