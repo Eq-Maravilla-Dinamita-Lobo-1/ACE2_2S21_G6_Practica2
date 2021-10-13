@@ -1,11 +1,11 @@
-const mqtt = riquier('mqtt');
+const mqtt = require('mqtt');
 const serialPort = require("serialport");
 // const readLine = require("@serialport/parser-readline");
 
 const publisher = mqtt.connect('mqtt://test.mosquitto.org');
 
 
-const usb_port = 'COM3';
+const usb_port = 'COM5';
 const bauds = 9600;
 
 const port = new serialPort(usb_port, { baudRate: bauds });
