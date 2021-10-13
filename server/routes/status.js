@@ -12,6 +12,43 @@ router.get('/actualStatus', (req, res) => {
     });
 });
 
+//ToDo 
+//media del dia actual
+//mayor
+//menor
+//media
+
+//todos los registros del dia actual
+//mayor
+//menor
+//media
+
+//Todos los registros del dia anterior
+//mayor
+//menor
+//media
+
+//Todos los registros de la semana, promedio del dia
+//mayor
+//menor
+//media
+
+//Todos los registros de la semana pasada, promedio del dia
+//mayor
+//menor
+//media
+
+//Todos los registros del mes actual, promedio de dias
+//mayor
+//menor
+//media
+
+//Todos los registros del mes anterior, promedio de dias
+//mayor
+//menor
+//media
+
+
 
 
 /* router.post('/newUser', (req, res) => {
