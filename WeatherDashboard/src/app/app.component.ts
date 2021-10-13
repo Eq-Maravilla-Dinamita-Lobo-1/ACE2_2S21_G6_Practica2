@@ -11,11 +11,11 @@ import { IMqttMessage } from 'ngx-mqtt';
 })
 export class AppComponent implements OnInit, OnDestroy {
 	
-    temperature = 0.0;
-    humidity = 0.0;
-    light = 0.0;
-    windSpeed = 0.0;
-    windDirection = "";
+    temperature = 30.0;
+    humidity = 20.0;
+    light = 10.0;
+    windSpeed = 40.0;
+    windDirection = "Norte";
 
     dateStr: any;
     time: any;
@@ -132,7 +132,7 @@ export class AppComponent implements OnInit, OnDestroy {
     }
 
     private subscribeToTopic(){
-        this.subscription = this.eventMqttService.topic('ACYE2_G6/#')
+        this.subscription = this.eventMqttService.topic('data')
             .subscribe( (data: IMqttMessage) => {
                 console.log(data.payload.toString());
                 

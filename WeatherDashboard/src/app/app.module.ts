@@ -12,12 +12,11 @@ import { StatusCardComponent } from './components/status-card/status-card.compon
 
 
 const MQTT_SERVICE_OPTIONS: IMqttServiceOptions = {
-    hostname: 'test.mosquitto.org',
-    port: 8080,
+    // hostname: 'test.mosquitto.org' , 
+    // port: 8083,
+    hostname: 'localhost' , 
+    port: 9000,
     protocol: "ws",
-    //  hostname: 'broker.hivemq.com',
-            // protocol: 'ws',
-            // port: 8000,
     path: '/mqtt',
 };
 
