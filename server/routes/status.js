@@ -4,14 +4,15 @@ require('dotenv').config()
 
 const DB = require('../config/configdb');
 
-router.get('/status', (req, res) => {
-    const sql = `select * from status`;
-    DB.query(sql, function (error, results) {
+router.get('/actualStatus', (req, res) => {
+    const sql = `select * from status order by date_time desc limit 1`;
+    DB.query(sql, function(error, results) {
         if (error) res.send({ message: error });
-        console.log(results);
         res.send(results);
     });
 });
+
+
 
 /* router.post('/newUser', (req, res) => {
     no_cuenta = req.body.no_cuenta
