@@ -39,6 +39,10 @@ body{
     padding: 0; 
 }
 
-canvas {
+.p-tabview-panel {
     max-height: 300px;
+}
+canvas {
+    // max-height: 300px;
+    // height: 300px;
 }

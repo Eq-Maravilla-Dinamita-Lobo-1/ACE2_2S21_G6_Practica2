@@ -15,23 +15,12 @@ export class GraphicComponent implements OnInit {
     valueDate: Date = new Date();
     tabSelected = 0;
     visible : boolean = false;
+    display : boolean = false;
 
     lineStylesData: any;
     basicOptions: any;
     xText : string = 'Horas';
     yText: string = '';
-
-    temperatureData  = [];
-    temperatureLabel = [];
-
-    humidityData    = [];
-    humidityLabel   = [];
-
-    windSpeedData   = [];
-    windSpeedLabel  = [];
-
-    lightData       = [];
-    lightLabel      = [];
 
     data: any;
     chartOptions: any;
@@ -55,60 +44,17 @@ export class GraphicComponent implements OnInit {
             {name: 'Menor', code: 'min'},
         ];
 
-        this.getData();
-        this.graph(['January', 'February', 'March', 'April', 'May', 'June', 'July'],[12, 51, 62, 33, 21, 62, 45])
-
-
-
-        this.data = {
-            labels: ['Norte', 'Este', 'Sur', 'Oeste'],
-        
-            datasets: [
-                {
-                    label: 'My First dataset',
-                    backgroundColor: 'rgba(179,181,198,0.2)',
-                    borderColor: 'rgba(179,181,198,1)',
-                    pointBackgroundColor: 'rgba(179,181,198,1)',
-                    pointBorderColor: '#fff',
-                    pointHoverBackgroundColor: '#fff',
-                    pointHoverBorderColor: 'rgba(179,181,198,1)',
-                    data: [65, 59, 90, 100]
-                }
-            ]
-        };
-
-        this.chartOptions = {
-            plugins: {
-                legend: {
-                    labels: {
-                        color: '#ebedef'
-                    }
-                }
-            },
-            scales: {
-                r: {
-                    pointLabels: {
-                        color: '#ebedef',
-                    },
-                    grid: {
-                        color: 'rgba(255,255,255,0.2)',
-                    },
-                    angleLines: {
-                        color: 'rgba(255,255,255,0.2)'
-                    }
-                }
-            }
-        }
-    
+        this.getData();    
     }
 
     private graph( labels: any, data: any){
+       
         this.lineStylesData = {
             labels,
             datasets: [
                 
                 {
-                    label: 'Third Dataset',
+                    label: '',
                     data,
                     fill: true,
                     borderColor: '#FFA726',
@@ -121,9 +67,7 @@ export class GraphicComponent implements OnInit {
         this.basicOptions = {
             plugins: {
                 legend: {
-                    labels: {
-                        color: '#ebedef'
-                    }
+                    display: false
                 }
             },
             scales: {
@@ -156,52 +100,111 @@ export class GraphicComponent implements OnInit {
 
     }
 
+    private graphWindSpeed( data: any){
+
+        this.data = {
+            labels: ['Norte', 'Este', 'Sur', 'Oeste'],
+        
+            datasets: [
+                {
+                    label: '',
+                    backgroundColor: 'rgba(179,181,198,0.2)',
+                    borderColor: 'rgba(179,181,198,1)',
+                    pointBackgroundColor: 'rgba(179,181,198,1)',
+                    pointBorderColor: '#fff',
+                    pointHoverBackgroundColor: '#fff',
+                    pointHoverBorderColor: 'rgba(179,181,198,1)',
+                    data
+                }
+            ]
+        };
+
+        this.chartOptions = {
+            plugins: {
+                legend: {
+                    display: false
+                }
+            },
+            scales: {
+                r: {
+                    pointLabels: {
+                        color: '#ebedef',
+                    },
+                    grid: {
+                        color: 'rgba(255,255,255,0.2)',
+                    },
+                    angleLines: {
+                        color: 'rgba(255,255,255,0.2)'
+                    }
+                }
+            }
+        }
+    }
+
     getData(){
 
-        let type = ''
+        let value = ''
         if (this.tabSelected == 0) { 
-            type = 'temperature';
+            value = 'temperature';
             this.yText = 'Grados Celcius';
         }
         else if (this.tabSelected == 1) {
-            type = '';
+            value = 'humidity';
             this.yText = 'Porcentaje';
         }
         else if (this.tabSelected == 2) {
-            type = '';;
+            value = 'brightness';;
             this.yText = 'Lúmenes (lm)';
         } 
             
         else if (this.tabSelected == 3) {
-            type = '';
+            value = 'windspeed';
             this.yText = 'Kilómetro por Hora (km / h)';
         }
         else {
-            type = ''
+            value = 'winddirection'
         }
 
-        this.graph([], []);
 
         if (this.visible) {
-            // this.grahpService.grahp(type, this.selectedOption, this.selectedOption2)
-            //     .subscribe( (data: any) => {
-            //         console.log(data);
-                    
-            //         // this.graph([], []);
-            //     }, error => console.error("ERROR TO GRAPH", error))
+            this.grahpService.getDataByDate(this.valueDate, this.selectedOption, this.selectedOption2)
+                .subscribe( data => this.normalizeData(data), error => console.error("ERROR TO GRAPH", error))
             console.log("Grahp by date: ", this.valueDate);
-            
         }
         else {
-            // this.grahpService.grahp(type, this.selectedOption, this.selectedOption2)
-            //     .subscribe( (data: any) => {
-            //         console.log(data);
-                    
-            //         // this.graph([], []);
-            //     }, error => console.error("ERROR TO GRAPH", error))
+            this.grahpService.getData(this.selectedOption, this.selectedOption2, value)
+                .subscribe( data => this.normalizeData(data), error => console.error("ERROR TO GRAPH", error))
         }
 
         
+    }
+
+    private normalizeData( data: any ){
+        console.log(data);
+
+        if ( this.tabSelected == 4 ) {
+            let values = [0, 0, 0]
+            data.forEach( (item: any) => {
+                if(item.direction == "Norte" ) values[0] = item.cont
+                else if(item.direction == "Este" ) values[1] = item.cont
+                else if(item.direction == "Sur" ) values[2] = item.cont
+                else if(item.direction == "Oeste" ) values[3] = item.cont
+            })
+        
+            this.graphWindSpeed(values)
+            return;
+        }
+
+        let y: any = [];
+        let x: any = [];
+
+        data.forEach( (item: any) => {
+            console.log(item);
+            y.push(Object.values(item)[0])
+            x.push(Object.values(item)[1])
+        })
+        
+        this.graph(x, y);
     }
 
     onChange() {
@@ -224,6 +227,11 @@ export class GraphicComponent implements OnInit {
     handleChange(e :any) {
         this.tabSelected = e.index;
         this.getData();
+    }
+
+
+    showDialog() {
+        this.display = true;
     }
 
 

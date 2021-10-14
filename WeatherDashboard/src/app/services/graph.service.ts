@@ -6,14 +6,14 @@ import { Injectable } from '@angular/core';
 })
 export class GraphService {
 
-  private URI = ''
+  private URI = 'http://localhost:3100'
   constructor( private http: HttpClient) { }
 
   getData(type: string, filter: string, value: string){
     return this.http.get( `${this.URI}/${type}/${filter}/${value}`)
   }
 
-  getDataByDate(date: string, filter: string, value: string){
+  getDataByDate(date: Date, filter: string, value: string){
     return this.http.get( `${this.URI}/date/${date}/${filter}/${value}`)
   }
 }

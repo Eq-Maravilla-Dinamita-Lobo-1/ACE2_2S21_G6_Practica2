@@ -17,18 +17,14 @@ export class AppComponent implements OnInit, OnDestroy {
     windSpeed = 40.0;
     windDirection = "Norte";
 
-    dateStr: any;
-    time: any;
+    now : Date = new Date();
 
 
     //@ts-ignore
     subscription : Subscription;
 
     constructor( private primengConfig: PrimeNGConfig, private readonly eventMqttService: EventMqttService){
-        let dt = new Date();
-        this.dateStr = Date.now()
-        this.time = dt.getTime()
-
+        setInterval( () => { this.now = new Date() }, 1 )
     }
 
 
