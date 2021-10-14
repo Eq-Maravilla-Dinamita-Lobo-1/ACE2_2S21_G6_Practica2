@@ -4,39 +4,57 @@
 
     <p class="font-semibold text-center text-xl uppercase"> Velocidad del viento </p>
 
-    <div class="wi-icon flex flex-column align-items-center" *ngIf="windStatus==0">
+    <div class="wi-icon flex flex-column align-items-center" *ngIf="windStatus === 0">
         <img src="/assets/weather-icon/fill/all/wind.svg" alt="Velocidad del Viento">
         <p class="font-medium text-center text-lg m-0">Nomal</p>
     </div>
 
-    <div class="wi-icon flex flex-column align-items-center" *ngIf="windStatus==1">
+    <div class="wi-icon flex flex-column align-items-center" *ngIf="windStatus === 1">
         <img src="/assets/weather-icon/fill/all/dust-wind.svg" alt="Velocidad del Viento">
-        <p class="font-medium text-center text-lg m-0"> Fuerte</p>
+        <p class="font-medium text-center text-lg m-0"> Alto</p>
     </div>
 
 
     <p class="font-semibold text-center text-xl uppercase"> Visibilidad </p>
     <div class="mb-4">
 
-        <div class="wi-icon flex flex-column align-items-center" *ngIf="visibility==2">
-            <img src="/assets/weather-icon/fill/all/partly-cloudy-day-rain.svg" alt="Visbilidad Nublado">
-            <p class="font-medium text-center text-lg m-0">Nublado</p>
-        </div>
-        
-        <div class="wi-icon flex flex-column align-items-center" *ngIf="visibility==3">
+               
+        <div class="wi-icon flex flex-column align-items-center" *ngIf="visibility === 2">
             <img src="/assets/weather-icon/fill/all/partly-cloudy-day.svg" alt="Visbilidad Nublado">
             <p class="font-medium text-center text-lg m-0">Nublado</p>
         </div>
         
-        <div class="wi-icon flex flex-column align-items-center" *ngIf="visibility==4">
-            <img src="/assets/weather-icon/fill/all/clear-day.svg" alt="Visbilidad Despejado">
-            <p class="font-medium text-center text-lg m-0"> Despejado</p>
-        </div>
-        
-        <div class="wi-icon flex flex-column align-items-center" *ngIf="visibility==5">
+        <div class="wi-icon flex flex-column align-items-center" *ngIf="visibility === 3">
             <img src="/assets/weather-icon/line/all/clear-day.svg" alt="Visbilidad Despejado">
             <p class="font-medium text-center text-lg m-0"> Despejado</p>
         </div>
+
+        <div class="flex flex-row flex-wrap justify-content-around" >
+             <div class="wi-icon flex flex-column align-items-center" *ngIf="rainStatus === 4">
+                <img src="/assets/weather-icon/fill/all/rain.svg" alt="con lluvia">
+                <p class="font-medium text-center text-lg m-0">con lluvia</p>
+            </div>
+
+
+             <div class="wi-icon flex flex-column align-items-center" *ngIf="rainStatus == 5">
+                <img src="/assets/weather-icon/fill/all/cloudy.svg" alt="sin lluvia">
+                <p class="font-medium text-center text-lg m-0">sin lluvia</p>
+            </div>
+
+
+             <div class="wi-icon flex flex-column align-items-center" *ngIf="hotStatus === 6">
+                <img src="/assets/weather-icon/fill/all/thermometer-warmer.svg" alt="con calor">
+                <p class="font-medium text-center text-lg m-0">con calor</p>
+            </div>
+
+
+             <div class="wi-icon flex flex-column align-items-center" *ngIf="hotStatus === 7">
+                <img src="/assets/weather-icon/fill/all/thermometer-colder.svg" alt="sin calor">
+                <p class="font-medium text-center text-lg m-0">sin calor</p>
+            </div>
+        </div>
+
+
     </div>
 
 

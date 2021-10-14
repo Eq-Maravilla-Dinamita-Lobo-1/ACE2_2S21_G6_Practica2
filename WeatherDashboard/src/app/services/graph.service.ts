@@ -16,4 +16,8 @@ export class GraphService {
   getDataByDate(date: Date, filter: string, value: string){
     return this.http.get( `${this.URI}/date/${date}/${filter}/${value}`)
   }
+
+  getActualStatus(){
+    return this.http.get( `${this.URI}/actualStatus`)
+  }
 }
