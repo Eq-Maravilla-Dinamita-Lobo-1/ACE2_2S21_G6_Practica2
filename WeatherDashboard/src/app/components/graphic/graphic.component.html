@@ -1,0 +1,32 @@
+
+
+<p-card [style]="{'width': '100%', 'border-radius': '30px'}" [styleClass]="'shadow-7'">
+    
+    <i class="pi pi-filter mr-3" style="font-size: 1.2rem"></i>
+    <p-dropdown [options]="options" [(ngModel)]="selectedOption" optionLabel="name" optionValue="code" class="mb-4" (onChange)="onChange()"></p-dropdown>
+    <p-dropdown [options]="options2" [(ngModel)]="selectedOption2" optionLabel="name" optionValue="code" class="mb-4" (onChange)="onChange()"></p-dropdown>
+    <p-calendar [(ngModel)]="valueDate" *ngIf="visible" (onSelect)="getData()"></p-calendar>
+
+    <p-tabView (onChange)="handleChange($event)">
+        <p-tabPanel header="Temperatura">
+            <p-chart type="line"  [data]="lineStylesData" [options]="basicOptions"></p-chart>
+        </p-tabPanel>
+
+        <p-tabPanel header="Humedad">
+            <p-chart type="line" height="250" [data]="lineStylesData" [options]="basicOptions"></p-chart>
+        </p-tabPanel>
+
+        <p-tabPanel header="Cantidad de Luz">
+            <p-chart type="line" height="250" [data]="lineStylesData" [options]="basicOptions"></p-chart>
+        </p-tabPanel>
+
+        <p-tabPanel header="Velocidad del Viento">
+            <p-chart type="line" height="250" [data]="lineStylesData" [options]="basicOptions"></p-chart>
+        </p-tabPanel>
+        
+        <p-tabPanel header="Dirección del Viento">
+            <p-chart type="radar" [data]="data" [options]="chartOptions" [style]="{'width': '40%'}"></p-chart>
+        </p-tabPanel>
+    </p-tabView>
+
+</p-card>
