@@ -17,64 +17,22 @@ export class AppComponent implements OnInit, OnDestroy {
     windSpeed = 40.0;
     windDirection = "Norte";
 
-    dateStr: any;
-    time: any;
+    now : Date = new Date();
 
-    options: any;
-    options2: any;
-    selectedOption = ""
-    selectedOption2 = ""
-
-
-    lineStylesData: any;
-    basicOptions: any;
 
     //@ts-ignore
     subscription : Subscription;
 
     constructor( private primengConfig: PrimeNGConfig, private readonly eventMqttService: EventMqttService){
-        let dt = new Date();
-        this.dateStr = Date.now()
-        this.time = dt.getTime()
-
+        setInterval( () => { this.now = new Date() }, 1 )
     }
 
 
     ngOnInit() {
         this.subscribeToTopic();
         this.primengConfig.ripple = true;
-        this.options = [
-            {name: 'Hoy', code: 'NY'},
-            {name: 'Ayer', code: 'RM'},
-            {name: 'Esta Semana', code: 'LDN'},
-            {name: 'Semana Pasada', code: 'IST'},
-            {name: 'Este mes', code: 'PRS'},
-            {name: 'Mes Pasado', code: 'PRS'}
-        ];
 
-        this.options2 = [
-            {name: 'Media', code: 'NY'},
-            {name: 'Mayor', code: 'RM'},
-            {name: 'Menor', code: 'LDN'},
-        ];
 
-        this.lineStylesData = {
-            labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-            datasets: [
-                
-                {
-                    label: 'Third Dataset',
-                    data: [12, 51, 62, 33, 21, 62, 45],
-                    fill: true,
-                    borderColor: '#FFA726',
-                    tension: .4,
-                    backgroundColor: 'rgba(255,167,38,0.2)'
-                }
-            ]
-        };
-
-    
-        this.applyDarkTheme();
     }
 
     ngOnDestroy(){
@@ -83,59 +41,18 @@ export class AppComponent implements OnInit, OnDestroy {
         }
     }
 
-    private applyDarkTheme() {
-        this.basicOptions = {
-            plugins: {
-                legend: {
-                    labels: {
-                        color: '#ebedef'
-                    }
-                }
-            },
-            scales: {
-                x: {
-                    ticks: {
-                        color: '#ebedef'
-                    },
-                    grid: {
-                        color: 'rgba(255,255,255,0.2)'
-                    },
-                    // type: 'time',
-                    time: {
-                    // Luxon format string
-                    // tooltipFormat: 'DD T'
-                    },
-                    title: {
-                    display: true,
-                    text: 'Date'
-                    }
-                },
-                y: {
-                    ticks: {
-                        color: '#ebedef'
-                    },
-                    grid: {
-                        color: 'rgba(255,255,255,0.2)'
-                    },
-                    title: {
-                        display: true,
-                        text: 'Valor'
-                    }
-                }
-            }
-        };
 
-    }
-
-    onChange() {
-        console.log("OPTION1: ",this.selectedOption, " OPTION2: ", this.selectedOption2);      
-    }
-
+   
     private subscribeToTopic(){
         this.subscription = this.eventMqttService.topic('data')
             .subscribe( (data: IMqttMessage) => {
-                console.log(data.payload.toString());
-                
+                const json = JSON.parse(data.payload.toString());
+                // console.log(json);
+                this.temperature = json.temperature;
+                this.humidity = json.humidity;
+                this.light = json.Luminocidad;
+                this.windSpeed = json.windSpeed;
+                this.windDirection = json.windDirection;
             });
     }
   
