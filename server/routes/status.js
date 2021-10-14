@@ -193,7 +193,6 @@ router.get('/lastmonth/:filter/:value', (req, res) => {
         and year(st.date_time) = year(date_add(now(), interval -6 HOUR ))
         group by day(st.date_time) order by day;`
     } else return res.send({ message: 'bad request' })
-    console.log(sql)
     DB.query(sql, function(error, results) {
         if (error) return res.send({ message: error });
         res.send(results);
