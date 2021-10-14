@@ -9,7 +9,7 @@ const onMessage = (topic, message) => {
         INSERT INTO status 
             (temperature, temperaturef, humidity, windspeed, winddirection, brightness, date_time) 
         VALUES 
-            (${data.temperature}, ${data.temperatureF}, ${data.humidity}, ${data.windSpeed}, \"${data.windDirection}\", ${data.Luminocidad}, NOW())`;
+            (${data.temperature}, ${data.temperatureF}, ${data.humidity}, ${data.windSpeed}, \"${data.windDirection}\", ${data.Luminocidad}, date_add(now(), interval -6 HOUR ))`;
         DB.query(sql, function(error, results) {
             if (error) console.log(error);
             console.log('Id ', results.insertId, ' inserted')
